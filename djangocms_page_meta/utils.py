@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
-
+import logging
+logger = logging.getLogger(__name__)
 
 def get_cache_key(page, language):
     """
@@ -23,8 +24,12 @@ def get_page_meta(page, language):
     from django.core.cache import cache
     from meta.views import Meta
     from .models import PageMeta, TitleMeta
+    
+    logger.debug(page)
 
     meta_key = get_cache_key(page, language)
+    logger.debug(meta_key)
+    logger.debug(page.get_absolute_url(language)
     meta = cache.get(meta_key)
     if not meta:
         meta = Meta()
